@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R.B.Kejriwal website&mdash;</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!--script src="js/invoice.js"></script-->
+	<script>
+		$(document).ready(function()
+		{
+			$(document).on('click', '#checkAll', function() 
+			{          	
+				$(".itemRow").prop("checked", this.checked);
+			});	
+			$(document).on('click', '.itemRow', function() 
+			{  	
+				if ($('.itemRow:checked').length == $('.itemRow').length) 
+				{
+					$('#checkAll').prop('checked', true);
+				} 
+				else 
+				{
+					$('#checkAll').prop('checked', false);
+				}
+			});  
+			var count = $(".itemRow").length; 
+			$(document).on('click', '#addRows', function() 
+			{ 
+				count++;
+				var htmlRows = '';
+				htmlRows += '<tr>';		
+				htmlRows += '<td><input class="itemRow" type="checkbox"></td>';  
+  		        htmlRows += '<td><input type="number" 	name="findm[]" 		id="findm_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"></td>';	
+      			htmlRows += '<td><input type="number" 	name="fyeardm[]" 	id="fyeardm_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"><input type="number" 	name="fyeardm1[]" 	id="fyeardm1_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"></td>';
+				htmlRows += '<td><input type="text" 	name="srno[]" 		id="srno_'+count+'"			class="form-control form-control-lg" autocomplete="off" size="1"></td>'; 
+				htmlRows += '<td><input type="text" 	name="name1[]" 		id="name1_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="25"></td>'; 
+				htmlRows += '<td><input type="text" 	name="fathername[]" id="fathername_'+count+'"	class="form-control form-control-lg" autocomplete="off" size="25"></td>';
+				htmlRows += '<td><input type="date" 	name="dob[]" 		id="dob_'+count+'"		    class="form-control form-control-lg" autocomplete="off" size="25"></td>';
+				htmlRows += '<td><input type="text" 	name="din[]" 		id="din_'+count+'"			class="form-control form-control-lg" autocomplete="off" size="6"></td>'; 
+				htmlRows += '<td><input type="number" 	name="shares[]" 	id="shares_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="4"></td>'; 
+				htmlRows += '<td><input type="text" 	name="designation[]" id="designation_'+count+'"	class="form-control form-control-lg" autocomplete="off" size="6"></td>';
+				htmlRows += '<td><input type="text" 	name="cindirec[]" 	id="cindirec_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="8"></td>'; 
+				htmlRows += '<td><input type="date" 	name="appdate[]" 	id="appdate_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="7"></td>'; 
+				htmlRows += '<td><input type="date" 	name="resdate[]" 	id="resdate_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="7"></td>'; 
+				htmlRows += '<td><input type="text" 	name="address2[]" 	id="address2_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="25"></td>'; 
+				htmlRows += '<td><input type="number" 	name="executive[]" 	id="executive_'+count+'"	class="form-control form-control-lg" autocomplete="off" size="4"></td>'; 
+				htmlRows += '<td><input type="number" 	name="mheld[]" 		id="mheld_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="4"></td>'; 
+				htmlRows += '<td><input type="number" 	name="attended[]" 	id="attended_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="4"></td>'; 
+				htmlRows += '<td><input type="number" 	name="agm[]" 		id="agm_'+count+'"			class="form-control form-control-lg" autocomplete="off" size="4"></td>'; 
+				htmlRows += '<td><input type="text" 	name="dirkey[]" 	id="dirkey_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="10"></td>'; 
+				htmlRows += '</tr>';
+				
+				$('#invoiceItem').append(htmlRows);
+			}); 
+			$(document).on('click', '#removeRows', function()
+			{
+				$(".itemRow:checked").each(function() 
+				{
+					$(this).closest('tr').remove();
+				});
+				$('#checkAll').prop('checked', false);
+				calculateTotal();
+			});	
+		});
+	</script>
+<script type="text/javascript">
+function syncyear()
+{
+  var y1 = document.getElementById('fyear');
+  var y2 = document.getElementById('fyear1');
+  var y3 = document.getElementById('fyeardm_1');
+  var y4 = document.getElementById('fyeardm1_1');
+  var y5 = document.getElementById('fyeargm_1');
+  var y6 = document.getElementById('fyeargm1_1');
+  var y7 = document.getElementById('fyearbm_1');
+  var y8 = document.getElementById('fyearbm1_1');
+  
+  y3.value = y1.value;
+  y5.value = y1.value;
+  y7.value = y1.value;
+  y4.value = y2.value;
+  y6.value = y2.value;
+  y8.value = y2.value;
+}
+</script>
+	<script>
+		$(document).ready(function()
+		{
+			$(document).on('click', '#checkAll', function() 
+			{          	
+				$(".itemRow").prop("checked", this.checked);
+			});	
+			$(document).on('click', '.itemRow', function() 
+			{  	
+				if ($('.itemRow:checked').length == $('.itemRow').length) 
+				{
+					$('#checkAll').prop('checked', true);
+				} 
+				else 
+				{
+					$('#checkAll').prop('checked', false);
+				}
+			});  
+			var count = $(".itemRow").length; 
+			$(document).on('click', '#dgmadd', function() 
+			{ 
+				count++;
+				var htmlRows = '';			
+				htmlRows += '<tr>';	
+				htmlRows += '<td><input class="itemRow" type="checkbox" name="mark"></td>'; 
+				htmlRows += '<td><input type="number"	name="fingm[]" 		id="fingm'+count+'"		class="form-control form-control-lg" size="50">	</td>';
+				htmlRows += '<td><input type="number" 	name="fyeargm[]" 	id="fyeargm_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"><input type="number" 	name="fyeargm1[]" 	id="fyeargm1_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"></td>';
+				htmlRows += '<td><input type="date" 	name="dateofgmet[]" 	id="dateofgmet'+count+'"		class="form-control form-control-lg" size="10"><input type="time" 		name="timeofgmet[]" 	id="timeofgmet'+count+'"	class="form-control form-control-lg" size="10"></td>'; 
+				htmlRows += '<td><input type="text"		name="activity[]" 		id="activity'+count+'"		class="form-control form-control-lg" size="50">	</td>'; 
+				htmlRows += '<td><input type="text"		name="form_no[]" 		id="form_no'+count+'"		class="form-control form-control-lg" size="6">	</td>'; 
+				htmlRows += '<td><input type="text"		name="srn[]" 			id="srn'+count+'"		class="form-control form-control-lg" size="8">	</td>'; 
+				htmlRows += '<td><input type="date" 	name="dateoffilling[]" 	id="dateoffilling'+count+'"	class="form-control form-control-lg">			</td>'; 
+				htmlRows += '<td><input type="text" 	name="normal[]" 		id="normal'+count+'"		class="form-control form-control-lg" size="3">	</td>'; 
+				htmlRows += '<td><input type="number" 	name="totalsharehold[]" id="totalsharehold'+count+'"		class="form-control form-control-lg" size="2">	</td>'; 
+				htmlRows += '<td><input type="number" 	name="shareattended[]" 	id="shareattended'+count+'"		class="form-control form-control-lg" size="2">	</td>'; 
+				htmlRows += '<td><input type="number" 	name="sharevoted[]" 	id="sharevoted'+count+'"		class="form-control form-control-lg" size="4"> %</td>'; 
+				htmlRows += '</tr>';
+				$('#dgm').append(htmlRows);
+			}); 
+			$(document).on('click', '#dgmremove', function()
+			{
+				$(".itemRow:checked").each(function() 
+				{
+					$(this).closest('tr').remove();
+				});
+ 			$('#checkAll').prop('checked', false);
+				calculateTotal();
+			});	
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function()
+		{
+			$(document).on('click', '#checkAll', function() 
+			{          	
+				$(".itemRow").prop("checked", this.checked);
+			});	
+			$(document).on('click', '.itemRow', function() 
+			{  	
+				if ($('.itemRow:checked').length == $('.itemRow').length) 
+				{
+					$('#checkAll').prop('checked', true);
+				} 
+				else 
+				{
+					$('#checkAll').prop('checked', false);
+				}
+			});  
+			var count = $(".itemRow").length; 
+			$(document).on('click', '#dbmadd', function() 
+			{ 
+				count++;
+				var htmlRows = '';			
+				htmlRows += '<tr>'; 
+				htmlRows += '<td><input class="itemRow" 	type="checkbox" name="mark"></td>'; 
+				htmlRows += '<td><input type="number"	name="finbm[]" 		id="finbm'+count+'"		class="form-control form-control-lg" size="50">	</td>';
+				htmlRows += '<td><input type="number" 	name="fyearbm[]" 	id="fyearbm_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"><input type="number" 	name="fyearbm1[]" 	id="fyearbm1_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"></td>';
+				htmlRows += '<td><input type="date" name="dateofbmet[]" id="dateofbmet_1" class="form-control form-control-lg" size="10"> <input type="time" name="timeofbmet[]" id="timeofbmet_1" class="form-control form-control-lg" size="10"></td>'; 
+				htmlRows += '<td><input type="text" 		name="activitybmet[]" 	name="activitybmet_1"	class="form-control form-control-lg" size="50"></td>'; 
+				htmlRows += '<td><input type="text"		name="formnobmet[]" 	name="formnobmet_1"		class="form-control form-control-lg" size="6"></td>'; 
+				htmlRows += '<td><input type="text" 		name="srnbmet[]" 		name="srnbmet_1"		class="form-control form-control-lg" size="8"></td>'; 
+				htmlRows += '<td><input type="date" 		name="datefillbmet[]" 	name="datefillbmet_1"	class="form-control form-control-lg">		</td>'; 
+				htmlRows += '<td><input type="text" 		name="normal2[]" 		name="normal2_1"		class="form-control form-control-lg" size="3"></td>'; 
+				htmlRows += '<td><input type="number" 	name="totaldirector[]" 	name="totaldirector_1"	class="form-control form-control-lg" size="2"></td>'; 
+				htmlRows += '<td><input type="number" 	name="attendedbmet[]" 	name="attendedbmet_1"	class="form-control form-control-lg" size="2"></td>'; 
+				htmlRows += '<td><input type="number" 	name="attendancebmet[]" name="attendancebmet_1"		class="form-control form-control-lg" size="4"> %</td>'; 
+				htmlRows += '</tr>'; 
+				$('#dbm').append(htmlRows);
+			}); 
+			$(document).on('click', '#dbmremove', function()
+			{
+				$(".itemRow:checked").each(function() 
+				{
+					$(this).closest('tr').remove();
+				});
+				$('#checkAll').prop('checked', false);
+				calculateTotal();
+			});	
+		});
+	</script>
+	<script>
+		$(document).ready(function()
+		{
+			$(document).on('click', '#checkAll', function() 
+			{          	
+				$(".itemRow").prop("checked", this.checked);
+			});	
+			$(document).on('click', '.itemRow', function() 
+			{  	
+				if ($('.itemRow:checked').length == $('.itemRow').length) 
+				{
+					$('#checkAll').prop('checked', true);
+				} 
+				else 
+				{
+					$('#checkAll').prop('checked', false);
+				}
+			});  
+			var count = $(".itemRow").length; 
+			$(document).on('click', '#dcmadd', function() 
+			{ 
+				count++;
+				var htmlRows = '';			
+				htmlRows += '<tr>'; 
+				htmlRows += '<td><input class="itemRow" 	type="checkbox" name="mark"></td>'; 
+				htmlRows += '<td><input type="number"	name="fincm[]" 		id="fincm'+count+'"		class="form-control form-control-lg" size="50">	</td>';
+				htmlRows += '<td><input type="number" 	name="fyearcm[]" 	id="fyearcm_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"> <input type="number" 	name="fyearcm1[]" 	id="fyearcm1_'+count+'"		class="form-control form-control-lg" autocomplete="off" size="1"></td>';
+				htmlRows += '<td><input type="date"     name="dateofcmet[]" id="dateofcmet_1" class="form-control form-control-lg" size="10"> <input type="time" name="timeofcmet[]" id="timeofcmet_1" class="form-control form-control-lg" size="10"></td>'; 
+				htmlRows += '<td><input type="text" 	name="activitycmet[]" 	name="activitycmet_1"	class="form-control form-control-lg" size="50"></td>'; 
+				htmlRows += '<td><input type="text"		name="formnocmet[]" 	name="formnocmet_1"		class="form-control form-control-lg" size="6"></td>'; 
+				htmlRows += '<td><input type="text" 		name="srncmetcm[]" 		name="srncmetcm_1"		class="form-control form-control-lg" size="8"></td>'; 
+				htmlRows += '<td><input type="date" 		name="datefillcmet[]" 	name="datefillcmet_1"	class="form-control form-control-lg">		</td>'; 
+				htmlRows += '<td><input type="text" 		name="normalcm[]" 		name="normalcm_1"		class="form-control form-control-lg" size="3"></td>'; 
+				htmlRows += '<td><input type="number" 	name="totaldirectorcm[]" 	name="totaldirectorcm_1"	class="form-control form-control-lg" size="2"></td>'; 
+				htmlRows += '<td><input type="number" 	name="attendedcmet[]" 	name="attendedcmet_1"	class="form-control form-control-lg" size="2"></td>'; 
+				htmlRows += '<td><input type="number" 	name="attendancecmet[]" name="attendancecmet_1"		class="form-control form-control-lg" size="4"> %</td>'; 
+				htmlRows += '</tr>'; 
+				$('#dcm').append(htmlRows);
+			}); 
+			$(document).on('click', '#dcmremove', function()
+			{
+				$(".itemRow:checked").each(function() 
+				{
+					$(this).closest('tr').remove();
+				});
+				$('#checkAll').prop('checked', false);
+				calculateTotal();
+			});	
+		});
+	</script>
+	<script type='text/javascript'>
+        $(document).ready(function(){
+            $('#myForm input').keydown(function(e){
+             if(e.keyCode==13){       
+
+                if($(':input:eq(' + ($(':input').index(this) + 1) + ')').attr('type')=='submit'){// check for submit button and submit form on enter press
+                 return true;
+                }
+
+                $(':input:eq(' + ($(':input').index(this) + 1) + ')').focus();
+
+               return false;
+             }
+
+            });
+        });
+    </script>
+	<script type="text/javascript">
+// checks to see if the data passed in is a 4 digit year between now and 1900
+    function checkIsValidph(_data)
+    {
+       
+      if (_data.length != 10) return "This is not valid";
+      if (!_data.match(/\d{10}/)) return "This is not valid";
+      return "This is valid";
+    }
+</script>
+	<script type="text/javascript">
+// checks to see if the data passed in is a 4 digit year between now and 1900
+    function checkIsValid(_data)
+    {
+      var _thisYear = new Date().getFullYear();
+    
+      if (_data.length != 4) return "This is not valid";
+      if (!_data.match(/\d{4}/)) return "This is not valid";
+      if (parseInt(_data) > _thisYear+1 || parseInt(_data) < 1900)
+      return "This is not valid";
+      return "This is valid";
+    }
+</script>
+<script type="text/javascript">
+    function ValidatePAN(_data) {
+        var txtPANCard = document.getElementById("pan");
+        //var lblPANCard = document.getElementById("lblPANCard")
+		if (!_data.match(/([A-Z]){5}([0-9]){4}([A-Z]){1}$/))
+		return "This is not valid";
+        return "This is valid";
+    }
+</script>
+<script type="text/javascript">
+    function Validatefrn(_data) {
+        //var txtPANCard = document.getElementById("pan");
+        //var lblPANCard = document.getElementById("lblPANCard")
+		if (!_data.match(/([0-9]){6}([A-Z]){1}$/))
+		return "This is not valid";
+        return "This is valid";
+    }
+</script>
+<script type="text/javascript">
+    function Validatecin(_data) {
+        var txtcinCard = document.getElementById("cin");
+        //var lblPANCard = document.getElementById("lblPANCard")
+		if (!_data.match(/([A-Z]){1}([0-9]){5}([A-Z]){2}([0-9]){4}([A-Z]){3}([0-9]){6}$/))
+		return "This is not valid";
+        return "This is valid";
+    }
+</script>
+<script>
+function sync()
+{
+  var n1 = document.getElementById('fin');
+  var n2 = document.getElementById('finca');
+  var n3 = document.getElementById('findm_1');
+  var n4 = document.getElementById('finkmp');
+  var n5 = document.getElementById('finbm_1');
+  var n6 = document.getElementById('fingm_1');
+  var n7 = document.getElementById('findep');
+  var n8 = document.getElementById('fincypy');
+  var n9 = document.getElementById('finother');
+  
+  n2.value = n1.value;
+  n3.value = n1.value;
+  n4.value = n1.value;
+  n5.value = n1.value;
+  n6.value = n1.value;
+  n7.value = n1.value;
+  n8.value = n1.value;
+  n9.value = n1.value;
+}
+</script>
+
+<!--script>
+function syncauth()
+{
+  var n1 = document.getElementById('authcapital').value;
+  var n2 = document.getElementById('select').value;
+  var n3 = "yes";
+  var n4 = "no";
+  var n5 = 5000000;
+  if (n1 > n5)
+  {
+   var text="yes";
+  }
+  else
+  {
+  var text="no";
+  }
+  //return n2.value = "yes";
+  //return n2.value = "no";
+  document.getElementById("select").innerHTML = text.value;
+ }
+</script-->
+</head>
+<body>
+<form action="datasam.php" id="myForm" method="post">
+<table class="block" style="width: 100%;" border = 1>
+<tr>
+<td colspan="6">Form_invoice_no<input type="number" name="fin" id="fin" class="form-control form-control-lg" onkeyup="sync()" required></td>
+	</tr>
+	<tr>
+	    <td colspan="1">Financial Year</td>
+        <td colspan="1"><input type="number" name="fyear" id="fyear" class="form-control form-control-lg" onkeyup="syncyear()" onchange="alert(checkIsValid(this.value));" required><input type="number" name="fyear1" id="fyear1" class="form-control form-control-lg" onkeyup="syncyear()" onchange="alert(checkIsValid(this.value));" required></td>
+        <td colspan="3">Last AGM:<input type="date" name="ldate" class="form-control form-control-lg" required></td>
+        <td colspan="3">Current AGM: <input type="date" name="cdate" class="form-control form-control-lg" required></td>
+    </tr>
+    <tr>
+        <td colspan="2">Name of Company</td>
+        <td colspan="6"><select name="ctype" id="ctype">
+          <option>private ltd</option>
+          <option>ltd</option>
+		  <option>llp</option>
+		  <option>opc</option>
+		  <option>Sec 8</option>
+		  </select>
+        <input type="text" name="cname" class="form-control form-control-lg" size="100" required></td>
+        <td colspan="4">email id: <input type="email" name="email" class="form-control form-control-lg" required></td>
+    </tr>
+    <tr>
+        <td colspan="2">CIN</td>
+        <td colspan="2"><input type="text" name="cin" class="form-control form-control-lg" size="50" onchange="alert(Validatecin(this.form.cin.value));" required></td>
+        <td colspan="4">Incorporation Date: <input type="date" name="idate" class="form-control form-control-lg" required></td>
+        <td colspan="5">Ph.No: <input type="number" name="cphno" class="form-control form-control-lg" required></td>        
+        
+    </tr>
+    <tr>
+        <td colspan="2">Registered Office</td>
+        <td colspan="8"><textarea name="reoffice" class="form-control form-control-lg" size="100" rows="4" cols="50" required>
+		</textarea></td>
+        <td>prepared by:</td>
+        <td colspan="7"><input type="text" name="prby" class="form-control form-control-lg" required></td>
+    </tr>
+    <tr>
+        <td colspan="10">WEF: <input type="date" name="wef" class="form-control form-control-lg" required>
+		<input type="text" name="wefaddress" class="form-control form-control-lg" size="44" required></td>
+        <td>checked by:</td>
+        <td colspan="7"><input type="text" name="checkby" class="form-control form-control-lg" required></td>
+    </tr>
+    <tr>
+        <td colspan="2">Police Station</td>
+        <td colspan="8"><input type="text" name="postation" class="form-control form-control-lg" size="80"></td>
+        <td>print by:</td>
+        <td colspan="7"><input type="text" name="prby" class="form-control form-control-lg"></td>
+    </tr>
+    <tr>
+        <td colspan="2">Holding Company</td>
+        <td><textarea name="holdingcom" class="form-control form-control-lg" rows="4" cols="50"></textarea></td>
+        <td colspan="4"></td>
+        <td colspan="3">PAN: <input type="text" name="pan" class="form-control form-control-lg" onchange="alert(ValidatePAN(this.form.pan.value));" required></td>
+        <td>scan by:</td>
+        <td colspan="7"><input type="text" name="scby" class="form-control form-control-lg"></td>
+    </tr>
+    <tr>
+        <td colspan="2">Subsidiary company</td>
+        <td colspan="8"><textarea name="subcom" class="form-control form-control-lg" required rows="4" cols="50"></textarea></td>
+        <td>forms by:</td>
+        <td colspan="7"><input type="text" name="fby" class="form-control form-control-lg"></td>
+    </tr>
+    <tr>
+        <td colspan="2">Authorised Capital </td>
+        <td colspan="2"><input type="number" name="authcapital" class="form-control form-control-lg" onkeyup="syncauth()" required></td>
+        <td colspan="2"></td>
+        <td colspan="4">Face Value: <input type="text" name="facevalue" class="form-control form-control-lg" required></td>
+        <td colspan="8">forms checked by: <input type="text" name="formscheby" class="form-control form-control-lg"></td>
+    </tr>
+    <tr>
+        <td colspan="2">Paid Up Capital</td>
+        <td colspan="2"><input type="number" name="paidcapital" class="form-control form-control-lg" required></td>
+        <td colspan="14">turnover <input type="number" name="turnover" class="form-control form-control-lg" required></td>
+    </tr>
+    <tr>
+        <td colspan="2">Security Premium</td>
+        <td colspan="2"><input type="text" name="secpremium" class="form-control form-control-lg" required></td>
+        <td colspan="14"></td>
+    </tr>
+    <tr>
+        <td colspan="2">As on date</td>
+        <td><input type="date" name="asondate" class="form-control form-control-lg" required></td>
+        <td colspan="5">Wether SMALL COMPANY:<input type="text" name="select" id="select" class="form-control form-control-lg"><!--select name="select">
+          <option>YES</option>
+          <option>NO</option></select--></td>
+        <td><input type="date" name="asondate2" class="form-control form-control-lg" required></td>
+        <td colspan="9"></td>
+    </tr>
+    <tr>
+        <td colspan="2">Chartered Accountant</td>
+		<td colspan="1">Form_invoice_no<input type="number" name="finca" id="finca" class="form-control form-control-lg" required></td>
+ 
+        <td>Name: <input type="text" name="chaacc" class="form-control form-control-lg" size="50" required></td>
+        <td colspan="3">Tel:Ph: <input type="number" name="tel_ph" class="form-control form-control-lg"></td>
+        <td colspan="2">PAN: <input type="text" name="capan" class="form-control form-control-lg" onchange="alert(ValidatePAN(this.form.capan.value));" required></td>
+        <td>email: <input type="email" name="caemail" class="form-control form-control-lg" required></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td colspan="6">Address: <input type="text" name="address1" class="form-control form-control-lg" size="82" required></td>
+        <td>FRN: <input type="text" name="frn" id="frn" class="form-control form-control-lg" onchange="alert(Validatefrn(this.form.frn.value));" required></td>
+        <td colspan="8"></td>
+    </tr>
+    <tr>
+        <td colspan="8"></td>
+        <td>M No: <input type="number" name="mno" class="form-control form-control-lg" required></td>
+        <td colspan="8"></td>
+    </tr>
+</table>
+</br>
+<table style="width: 100%;" border=1 id="invoiceItem">
+    <tr align="center">
+		<td><input id="checkAll" class="formcontrol" type="checkbox"></td>
+        <td>Form_invoice_no</td>
+		<td>Financial Year</td>
+		<td>Sr. No.</td>
+        <td>Name</td>
+		<td>Fathername</td>
+		<td>Date of birth</td>
+        <td>DIN</td>
+        <td>Shares</td>
+		<td>Designation</td>
+        <td>Change in director ship</td>
+        <td>App. Date</td>
+        <td>Resig. Date</td>
+        <td>Address</td>
+        <td>Executive  (Remuneration)</td>
+        <td>No. of meetings held</td>
+        <td>No. of meeting Attended</td>
+        <td>Agm</td>
+        <td>DIR KYC</td>
+    </tr>
+    <tr>
+		<td><input class="itemRow" 	type="checkbox" name="mark"></td>
+        <td><input type="number" 	name="findm[]"  		id="findm_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required>	</td>
+		<td><input type="number" 	name="fyeardm[]"  		id="fyeardm_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required><input type="number" 		name="fyeardm1[]"  		id="fyeardm1_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required></td>
+		<td><input type="text" 		name="srno[]"  			id="srno_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required>	</td>
+        <td><input type="text" 		name="name1[]" 			id="name1_1" 		class="form-control form-control-lg" autocomplete="off" size="25" required>	</td>
+        <td><input type="text" 		name="fathername[]"  	id="fathername_1" 	class="form-control form-control-lg" autocomplete="off" size="25" required>	</td>
+		<td><input type="date" 		name="dob[]"  			id="dob_1"  		class="form-control form-control-lg" autocomplete="off" size="1" required>	</td>
+        <td><input type="text"  	name="din[]" 			id="din_1" 			class="form-control form-control-lg" autocomplete="off" size="6" required>	</td>
+        <td><input type="number" 	name="shares[]" 		id="shares_1" 		class="form-control form-control-lg" autocomplete="off" size="4" required>	</td>
+        <td><input type="text"  	name="designation[]" 	id="designation_1" 	class="form-control form-control-lg" autocomplete="off" size="6" required>	</td>
+		<td><input type="text" 		name="cindirec[]" 		id="cindirec_1" 	class="form-control form-control-lg" autocomplete="off" size="8" required>	</td>
+        <td><input type="date" 		name="appdate[]" 		id="appdate_1" 		class="form-control form-control-lg" autocomplete="off" size="7" required>	</td>
+        <td><input type="date" 		name="resdate[]" 		id="resdate_1" 		class="form-control form-control-lg" autocomplete="off" size="7">	</td>
+        <td><input type="text" 		name="address2[]" 		id="address2_1"		class="form-control form-control-lg" autocomplete="off" size="25" required>	</td>
+        <td><input type="number" 	name="executive[]" 		id="executive_1" 	class="form-control form-control-lg" autocomplete="off" size="4">	</td>
+        <td><input type="number" 	name="mheld[]" 			id="mheld_1"		class="form-control form-control-lg" autocomplete="off" size="4" required>	</td>
+        <td><input type="number" 	name="attended[]" 		id="attended_1"		class="form-control form-control-lg" autocomplete="off" size="4" required>	</td>
+        <td><input type="number" 	name="agm[]" 			id="agm_1"			class="form-control form-control-lg" autocomplete="off" size="4" required>	</td>
+        <td><input type="text" 		name="dirkey[]" 		id="dirkey_1" 		class="form-control form-control-lg" autocomplete="off" size="10" required>	</td>
+    </tr>
+</table>
+<table style="width:1050px" border=1>
+	<tr>
+        <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
+			<button class="btn btn-success" id="addRows" type="button">+ Add More</button>		
+			<button class="btn btn-danger delete" id="removeRows" type="button">- Delete</button>
+			
+		</td>
+	</tr>
+</table>
+<table style="width:1050px" border=1>
+    <tr align="center">
+        <td colspan="">KMP IF ANY (Y/N)</td>
+        <td>manager</td>
+        <td>CFO</td>
+        <td>CS</td>
+    </tr>
+    <tr align="center">
+        <td>Form_Invoice_No<input type="number" name="finkmp" id="finkmp" class="form-control form-control-lg" required></td>
+        <td><input type="text" name="kmp4" class="form-control form-control-lg" size="6"></td>
+        <td><input type="text" name="kmp5" class="form-control form-control-lg" size="6"></td>
+        <td><input type="text" name="kmp6" class="form-control form-control-lg" size="6"></td>
+    </tr>
+    <tr>
+        <td colspan="20">Activity History</td>
+    </tr>
+	<tr>
+        <td colspan="20"> &nbsp; </td>
+    </tr>
+</table>	
+<table style="width: 100%;" border=1 id="dgm">
+    <tr align="center">
+		<td>Select</td>
+		<td>Form_Invoice_No</td>
+		<td>Financial Year</td>
+        <td>Date of General meeting</td>
+        <td>Activity</td>
+        <td>Form No.</td>
+        <td>SRN</td>
+        <td>Date of Filing</td>
+        <td>Normal?</td>
+        <td>Total Shareholder</td>
+        <td>Shareholders attended</td>
+        <td>Shareholders voted</td>
+    </tr>
+    <tr>
+		<td><input class="itemRow" 	type="checkbox" name="mark"></td>
+		<td><input type="number" 	name="fingm[]"  		id="fingm_1" 		    class="form-control form-control-lg" autocomplete="off" size="1">	</td>
+        <td><input type="number" 	name="fyeargm[]"  		id="fyeargm_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required><input type="number" 		name="fyeargm1[]"  		id="fyeargm1_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required>	</td>
+		<td><input type="date" 		name="dateofgmet[]" 	id="dateofgmet_1"		class="form-control form-control-lg" size="10"><input type="time" 		name="timeofgmet[]" 	id="timeofgmet_1"		class="form-control form-control-lg" size="10"></td>
+        <td><input type="text"		name="activity[]" 		id="activity_1"			class="form-control form-control-lg" size="50">	</td>
+        <td><input type="text"		name="form_no[]" 		id="form_no_1"			class="form-control form-control-lg" size="6">	</td>
+        <td><input type="text"		name="srn[]" 			id="srn_1"				class="form-control form-control-lg" size="8">	</td>
+        <td><input type="date" 		name="dateoffilling[]" 	id="dateoffilling_1"	class="form-control form-control-lg">			</td>
+        <td><input type="text" 		name="normal[]" 		id="normal_1"			class="form-control form-control-lg" size="3">	</td>
+        <td><input type="number" 	name="totalsharehold[]" id="totalsharehold_1"	class="form-control form-control-lg" size="2">	</td>
+        <td><input type="number" 	name="shareattended[]" 	id="shareattended_1"	class="form-control form-control-lg" size="2">	</td>
+        <td><input type="number" 	name="sharevoted[]" 	id="sharevoted_1"		class="form-control form-control-lg" size="4"> %</td>
+    </tr>
+</table>
+<table style="width: 100%;" border=1>
+	<tr>
+        <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
+			<button class="btn btn-success" id="dgmadd" type="button">+ Add More</button>		
+			<button class="btn btn-danger delete" id="dgmremove" type="button">- Delete</button>
+		</td>
+	</tr>
+	<td>&nbsp;</td>
+</table>	
+<table style="width: 100%;" border=1 id="dbm">
+     <tr align="center">
+		<td>Select</td>
+		<td>Form_Invoice_No</td>
+		<td>Financial Year</td>
+        <td>Date of Board meeting</td>
+        <td>Activity</td>
+        <td>Form No.</td>
+        <td>SRN</td>
+        <td>Date of Filing</td>
+        <td>Normal?</td>
+        <td>Total Directors</td>
+        <td>No. attended</td>
+        <td>% attendance</td>
+    </tr>
+    <tr>
+		<td><input class="itemRow" 	type="checkbox" name="mark"></td>
+		<td><input type="number" 	name="finbm[]"  id="finbm_1" 	 class="form-control form-control-lg" autocomplete="off" size="1">	</td>
+        <td><input type="number" 	name="fyearbm[]"id="fyearbm_1" 	 class="form-control form-control-lg" autocomplete="off" size="1" required><input type="number" 		name="fyearbm1[]"  		id="fyearbm1_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required>	</td>
+		<td>
+            <input type="date" name="dateofbmet[]" id="dateofbmet_1" class="form-control form-control-lg" size="10">
+            <input type="time" name="timeofbmet[]" id="timeofbmet_1" class="form-control form-control-lg" size="10">
+        </td>
+        
+        <td><input type="text" 		name="activitybmet[]" 	name="activitybmet_1"	class="form-control form-control-lg" size="50"></td>
+        <td><input type="text"		name="formnobmet[]" 	name="formnobmet_1"		class="form-control form-control-lg" size="6"></td>
+        <td><input type="text" 		name="srnbmet[]" 		name="srnbmet_1"		class="form-control form-control-lg" size="8"></td>
+        <td><input type="date" 		name="datefillbmet[]" 	name="datefillbmet_1"	class="form-control form-control-lg">		</td>
+        <td><input type="text" 		name="normal2[]" 		name="normal2_1"		class="form-control form-control-lg" size="3"></td>
+        <td><input type="number" 	name="totaldirector[]" 	name="totaldirector_1"	class="form-control form-control-lg" size="2"></td>
+        <td><input type="number" 	name="attendedbmet[]" 	name="attendedbmet_1"	class="form-control form-control-lg" size="2"></td>
+        <td><input type="number" 	name="attendancebmet[]" name="attendancebmet_1"		class="form-control form-control-lg" size="4"> %</td>
+		</tr>
+</table>
+<table style="width: 100%;" border=1>
+	<tr>
+         <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
+			<button class="btn btn-success" id="dbmadd" type="button">+ Add More</button>		
+			<button class="btn btn-danger delete" id="dbmremove" type="button">- Delete</button>
+		</td>
+	</tr>
+</table>
+<table style="width: 100%;" border=1 id="dcm">
+    <tr align="center">
+        <td colspan="12"></td>
+        <td>Attendance</td>
+        <td></td>
+        <td colspan="3"></td>
+    </tr>
+
+
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+     <tr align="center">
+	 <td>Select</td>
+		<td>Form_Invoice_No</td>
+		<td>Financial Year</td>
+        <td>Date of Commitee meeting</td>
+        <td>Activity</td>
+        <td>Form No.</td>
+        <td>SRN</td>
+        <td>Date of Filing</td>
+        <td>Normal?</td>
+        <td>Total Directors</td>
+        <td>No. attended</td>
+        <td>% attendance</td>
+        <td colspan="3"></td>
+	</tr>
+	<tr>
+		<td><input class="itemRow" 	type="checkbox" name="mark"></td>
+		<td><input type="number" 	name="fincm[]"  id="fincm_1" 	 class="form-control form-control-lg" autocomplete="off" size="1">	</td>
+        <td><input type="number" 	name="fyearcm[]"id="fyearcm_1" 	 class="form-control form-control-lg" autocomplete="off" size="1" required><input type="number" 		name="fyearcm1[]"  		id="fyearcm1_1" 		class="form-control form-control-lg" autocomplete="off" size="1" required>	</td>
+		<td>
+            <input type="date" name="dateofcmet[]" id="dateofcmet_1" class="form-control form-control-lg" size="10">
+            <input type="time" name="timeofcmet[]" id="timeofcmet_1" class="form-control form-control-lg" size="10">
+        </td>
+        
+        <td><input type="text" 		name="activitycmet[]" 	name="activitycmet_1"	class="form-control form-control-lg" size="50"></td>
+        <td><input type="text"		name="formnocmet[]" 	name="formnocmet_1"		class="form-control form-control-lg" size="6"></td>
+        <td><input type="text" 		name="srncmetcm[]" 		name="srncmetcm_1"		class="form-control form-control-lg" size="8"></td>
+        <td><input type="date" 		name="datefillcmet[]" 	name="datefillcmet_1"	class="form-control form-control-lg">		</td>
+        <td><input type="text" 		name="normalcm[]" 		name="normalcm_1"		class="form-control form-control-lg" size="3"></td>
+        <td><input type="number" 	name="totaldirectorcm[]" 	name="totaldirectorcm_1"	class="form-control form-control-lg" size="2"></td>
+        <td><input type="number" 	name="attendedcmet[]" 	name="attendedcmet_1"	class="form-control form-control-lg" size="2"></td>
+        <td><input type="number" 	name="attendancecmet[]" name="attendancecmet_1"		class="form-control form-control-lg" size="4"> %</td>
+		</tr>
+</table>
+<table style="width: 100%;" border=1>
+	<tr>
+         <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
+			<button class="btn btn-success" id="dcmadd" type="button">+ Add More</button>		
+			<button class="btn btn-danger delete" id="dcmremove" type="button">- Delete</button>
+		</td>
+	</tr>
+</table>
+<table style="width: 100%;" border=1>
+    <tr align="center">
+        <td colspan="3">Deposits</td>
+        <td colspan="4" align="left"><input type="text" name="deposits" class="form-control form-control-lg" required></td>
+        <td>Form_Invoice_No<input type="number" name="findep" id="findep" class="form-control form-control-lg" required></td>
+        <td></td>
+        <td colspan="2">Loans & Advances <input type="number" name="loansandadva" class="form-control form-control-lg" size="8" required></td>
+    </tr>
+
+    <tr align="center">
+        <td colspan="3">Given to</td>
+        <td>Director</td>
+        <td>Company</td>
+        <td>Promoter</td>
+        <td>Total</td>
+        <td>Limit (180)</td>
+        <td>Excess</td>
+        <td>Directors</td>
+        <td>Realtives</td>
+        <td>related Co.</td>
+        <td>Unrelated Co</td>
+        <td>Total</td>
+        <td>Limit (186)</td>
+    </tr>
+    <tr align="center">
+        <td colspan="3">Amount</td>
+        <td><input type="number" name="directorgivento" class="form-control form-control-lg" size="5"></td>
+        <td><input type="number" name="companygivento" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="promotergivento" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="totalgivento" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="limitgivento" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="excessgivento" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="directorsgivento" class="form-control form-control-lg" size="5"></td>
+        <td><input type="number" name="realtivesgivento" class="form-control form-control-lg" size="5"></td>
+        <td><input type="number" name="relatedco" class="form-control form-control-lg" size="5"></td>
+        <td><input type="number" name="unrelatedco" class="form-control form-control-lg" size="5"></td>
+        <td><input type="number" name="total" class="form-control form-control-lg" size="5"></td>
+        <td><input type="number" name="totall" class="form-control form-control-lg" size="8"></td>
+    </tr>
+    <tr align="center">
+        <td colspan="3">Wether allowed (Y/N)</td>
+        <td><input type="text" name="wa1" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa2" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa3" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa4" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa5" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="wa6" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa7" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa8" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa9" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa10" class="form-control form-control-lg" size="4"></td>
+        <td><input type="text" name="wa11" class="form-control form-control-lg" size="4"></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="20">Form_Invoice_No<input type="number" name="fincypy" id="fincypy" class="form-control form-control-lg"></td>
+    </tr>
+	 <tr align="center">
+        <td colspan="3"></td>
+
+		<td></td>
+        <td>C.Y</td>
+        <td>P.Y</td>
+        <td>Diff</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	 <tr align="center">
+        <td colspan="3"></td>
+		<td>Secured</td>
+        <td><input type="number" name="cy1" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="py1" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="diff1" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3"></td>
+		<td>unsecured</td>
+        <td><input type="number" name="cy2" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="py2" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="diff2" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3"></td>
+		<td>total</td>
+        <td><input type="number" name="cy3" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="py3" class="form-control form-control-lg" size="8"></td>
+        <td><input type="number" name="diff3" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="20">Form_Invoice_No<input type="number" name="finother" id="finother" class="form-control form-control-lg"></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">Other Security</td>
+        <td colspan="2">Preference Shares</td>
+         <td colspan="2">Debentures</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">Wether Any notice recd</td>
+		<td>IEPF</td>
+        <td></td>
+        <td>DIN</td>
+        <td></td>
+        <td>Others</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Dividend</td>
+        <td></td>
+        <td>Book Closure</td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">Special Checks</td>
+		<td>CSR</td>
+        <td>Independent Director</td>
+        <td>MGT 10</td>
+        <td>Online voting</td>
+        <td>Postal Voting</td>
+        <td>Vigil mech</td>
+        <td>Report of AGM</td>
+        <td>Sec. Std.</td>
+        <td>Woman Dir</td>
+        <td>Audit Comm</td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3"></td>
+		<td><input type="text" name="csr_1" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="independentdirector" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="mgt10" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="onlinevoting" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="postalvoting" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="vigilmech" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="reportofagm" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="secstd" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="womandir" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="auditcomm" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="20">&nbsp;</td>
+    </tr>
+	<tr align="center">
+        <td colspan="3"></td>
+		<td>Nomin & rem comm</td>
+        <td>Secretarial Audit</td>
+        <td>KMP</td>
+        <td>Internal Audit</td>
+        <td>Auditor rotation</td>
+        <td>Stakeholder com</td>
+        <td>MGT 8</td>
+        <td>MGT 7</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3"></td>
+		<td><input type="text" name="nomin" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="secaudit" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="kmp" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="internalaudit" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="auditorrel" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="stakeholder" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="mgt8" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="mgt7" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="20">&nbsp;</td>
+    </tr>
+	<tr>
+        <td colspan="4">Share Alloted other than cash RS <input type="text" name="saotcrs" class="form-control form-control-lg" size="4"></td>
+		<td></td>
+        <td colspan="4">Share application Money given <input type="text" name="samg" class="form-control form-control-lg" size="4"></td>
+        <td colspan="4">Share application Money O/s <input type="text" name="samos" class="form-control form-control-lg" size="4"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="4">Inter corporate depsoits given <input type="text" name="icdg" class="form-control form-control-lg" size="4"></td>
+		<td></td>
+        <td colspan="4">Inter corporate depsoits taken <input type="text" name="icdt" class="form-control form-control-lg" size="4"></td>
+        <td colspan="4"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="3">As -18 Baalnce sheet <input type="number" name="balancesheet" class="form-control form-control-lg" size="4"></td>
+		<td></td>
+		<td></td>
+        <td colspan="4">As -18 Profit & Loss <input type="number" name="profitloss" class="form-control form-control-lg" size="4"></td>
+        <td colspan="4"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="3">Call moneys <input type="text" name="callmoney" class="form-control form-control-lg" size="4"></td>
+		<td></td>
+		<td></td>
+        <td colspan="4">Capital Subsidies received <input type="text" name="capitalsubreceived" class="form-control form-control-lg" size="4"></td>
+        <td colspan="4">Revenue Subsidies received <input type="text" name="revenuesubreceived" class="form-control form-control-lg" size="4"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="3">Rent Paid <input type="text" name="rentpaid" class="form-control form-control-lg" size="4"></td>
+		<td><input type="text" name="rentpaid2" class="form-control form-control-lg" size="4"></td>
+		<td></td>
+        <td colspan="4"></td>
+        <td colspan="4"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td colspan="20">&nbsp;</td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">Turnover(Amt / %)</td>
+        <td>NIC code</td>
+		<td><input type="text" name="niccode" class="form-control form-control-lg" size="4"></td>
+        <td>ITC Code</td>
+        <td></td>
+        <td></td>
+        <td></td>
+		<td></td>
+        <td>Networth</td>
+        <td><input type="text" name="networth" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">Foreign Exchanges </td>
+        <td>Capital</td>
+		<td>Sale</td>
+        <td>Purchase</td>
+        <td>Expenses</td>
+        <td></td>
+        <td>FORM CODE</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">recpt (USD & Rs)</td>
+		<td><input type="text" name="rec1" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="rec2" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="rec3" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="rec4" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td><input type="text" name="rec5" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+	<tr align="center">
+        <td colspan="3">paid  (USD & Rs)</td>
+		<td><input type="text" name="paid1" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="paid2" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="paid3" class="form-control form-control-lg" size="8"></td>
+        <td><input type="text" name="paid4" class="form-control form-control-lg" size="8"></td>
+        <td></td>
+        <td><input type="text" name="paid5" class="form-control form-control-lg" size="8"></td>
+        <td colspan="4"><input type="text" name="paid6" class="form-control form-control-lg" size="50"></td>
+        <td></td>
+        <td></td>
+    </tr>
+	</table>
+	<table style="width: 100%;" border=1>
+    <tr align="center">
+                <td>
+                    
+					<input data-loading-text="Saving Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
+                                
+                </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
